@@ -1,0 +1,60 @@
+package NewPackage;
+
+import browser.BrowserGetter;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.openqa.selenium.WebDriver;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+
+@TestInstance(PER_CLASS)
+public class TestClass {
+
+
+    private final BrowserGetter browserGetter = new BrowserGetter();
+    private WebDriver driver;
+
+
+    @BeforeAll
+
+    public void beforeAll()
+    {
+        driver = browserGetter.getEdgeDriver();
+        //driver = browserGetter.getChromeDriver();
+    }
+
+    @AfterAll
+    public void afterAll()
+    {
+        driver.quit();
+    }
+
+    @Test
+    public void testMethod() throws InterruptedException
+    {
+        System.out.println("Hello from testMethod");
+        driver.navigate().to("https://www.google.com");
+
+           //    driver.wait();
+    }
+
+    @Test
+    public void openTheComPageAndCheckTheTitle()
+    {
+        System.out.println("Hello from openTheComPageAndCheckTheTitle");
+        String expectedComTitle = "Example Domain";
+        driver.get("https://www.example.com");
+        assertEquals(expectedComTitle, driver.getTitle());
+    }
+    @Test
+    public void openTheOrgPageAndCheckTheTitle()
+    {
+        System.out.println("Hello from openTheOrgPageAndCheckTheTitle");
+        String expectedOrgTitle = "Example Domain";
+        driver.get("https://www.example.org");
+        assertEquals(expectedOrgTitle, driver.getTitle());
+    }
+}
